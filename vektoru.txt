@@ -1,0 +1,146 @@
+1:
+#include <iostream>
+#include <string>
+
+int main() {
+    // Запрашиваем у пользователя строку
+    std::string user_input;
+    std::cout << "Введите строку: ";
+    std::cin >> user_input;
+
+    // Проверяем, что строка не пуста
+    if (!user_input.empty()) {
+        // Выводим первый символ строки
+        char first_char = user_input.front();
+        std::cout << "Первый символ: " << first_char << std::endl;
+
+        // Выводим последний символ строки
+        char last_char = user_input.back();
+        std::cout << "Последний символ: " << last_char << std::endl;
+    } else {
+        std::cout << "Строка пуста." << std::endl;
+    }
+
+    return 0;
+}
+3:
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string first_string, second_string;
+
+    // Запрашиваем у пользователя первую строку
+    std::cout << "Введите первую строку: ";
+    std::cin >> first_string;
+
+    // Запрашиваем у пользователя вторую строку
+    std::cout << "Введите вторую строку: ";
+    std::cin >> second_string;
+
+    // Сравниваем строки с помощью метода compare
+    int result = first_string.compare(second_string);
+
+    if (result == 0) {
+        std::cout << "Строки идентичны." << std::endl;
+    } else if (result < 0) {
+        std::cout << "Первая строка меньше второй." << std::endl;
+    } else {
+        std::cout << "Первая строка больше второй." << std::endl;
+    }
+
+    return 0;
+}
+2:
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string input_string;
+    std::cout << "Введите исходную строку: ";
+    std::getline(std::cin, input_string);
+
+    while (true) {
+        std::cout << "\nМеню опций:" << std::endl;
+        std::cout << "1. Вставить подстроку (insert)" << std::endl;
+        std::cout << "2. Удалить подстроку (erase)" << std::endl;
+        std::cout << "3. Заменить подстроку (replace)" << std::endl;
+        std::cout << "4. Найти подстроку (find)" << std::endl;
+        std::cout << "5. Выйти из программы" << std::endl;
+
+        int choice;
+        std::cout << "Выберите опцию (1-5): ";
+        std::cin >> choice;
+        std::cin.ignore();  // Очищаем буфер ввода от символа новой строки
+
+        switch (choice) {
+            case 1: {
+                std::string substring;
+                int position;
+
+                std::cout << "Введите подстроку для вставки: ";
+                std::getline(std::cin, substring);
+                std::cout << "Введите позицию для вставки: ";
+                std::cin >> position;
+
+                input_string.insert(position, substring);
+                std::cout << "Результат: " << input_string << std::endl;
+                break;
+            }
+            case 2: {
+                int start, length;
+
+                std::cout << "Введите начальную позицию для удаления: ";
+                std::cin >> start;
+                std::cout << "Введите длину подстроки для удаления: ";
+                std::cin >> length;
+
+                input_string.erase(start, length);
+                std::cout << "Результат: " << input_string << std::endl;
+                break;
+            }
+            case 3: {
+                std::string old_substring, new_substring;
+
+                std::cout << "Введите подстроку, которую нужно заменить: ";
+                std::cin.ignore();  // Очищаем буфер ввода от символа новой строки
+                std::getline(std::cin, old_substring);
+                std::cout << "Введите новую подстроку: ";
+                std::getline(std::cin, new_substring);
+
+                size_t found = input_string.find(old_substring);
+                if (found != std::string::npos) {
+                    input_string.replace(found, old_substring.length(), new_substring);
+                    std::cout << "Результат: " << input_string << std::endl;
+                } else {
+                    std::cout << "Подстрока не найдена." << std::endl;
+                }
+                break;
+            }
+            case 4: {
+                std::string search_substring;
+
+                std::cout << "Введите подстроку для поиска: ";
+                std::cin.ignore();  // Очищаем буфер ввода от символа новой строки
+                std::getline(std::cin, search_substring);
+
+                size_t found = input_string.find(search_substring);
+                if (found != std::string::npos) {
+                    std::cout << "Подстрока найдена на позиции " << found << std::endl;
+                } else {
+                    std::cout << "Подстрока не найдена." << std::endl;
+                }
+                break;
+            }
+            case 5: {
+                std::cout << "Выход из программы." << std::endl;
+                return 0;
+            }
+            default: {
+                std::cout << "Неверный выбор. Попробуйте еще раз." << std::endl;
+            }
+        }
+    }
+
+    return 0;
+}
